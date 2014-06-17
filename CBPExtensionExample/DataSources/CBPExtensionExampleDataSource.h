@@ -11,6 +11,7 @@
 @class CBPExtensionExamplePost;
 
 @interface CBPExtensionExampleDataSource : NSObject <UITableViewDataSource>
+- (instancetype)initWithTodayCell;
 - (void)loadPosts:(NSInteger)count completion:(void (^)(NSError* error)) handler;
 - (CBPExtensionExamplePost *)postAtIndex:(NSInteger)index;
 @end

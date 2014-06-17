@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+static const CGFloat CBPTodayTableViewCellHeight = 88.0;
 static const CGFloat CBPExtensionExampleTableViewCellHeight = 210.0;
 static NSString * const CBPExtensionExampleTableViewCellIdentifier = @"CBPExtensionExampleTableViewCellIdentifier";
 
@@ -16,4 +17,5 @@ static NSString * const CBPExtensionExampleTableViewCellIdentifier = @"CBPExtens
 @property (nonatomic) NSString *imageURI;
 @property (nonatomic) NSString *postDate;
 @property (nonatomic) NSString *postTitle;
+@property (nonatomic, assign) BOOL todayCell;
 @end

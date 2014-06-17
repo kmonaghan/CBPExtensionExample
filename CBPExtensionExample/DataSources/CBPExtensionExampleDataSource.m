@@ -16,9 +16,21 @@
 
 @interface CBPExtensionExampleDataSource()
 @property (nonatomic) NSArray *items;
+@property (nonatomic, assign) BOOL useTodayCell;
 @end
 
 @implementation CBPExtensionExampleDataSource
+- (instancetype)initWithTodayCell
+{
+    self = [super init];
+    
+    if (self) {
+        _useTodayCell = YES;
+    }
+    
+    return self;
+}
+
 #pragma mark -
 - (void)loadPosts:(NSInteger)count completion:(void (^)(NSError* error)) handler
 {
@@ -51,6 +63,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CBPExtensionExampleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CBPExtensionExampleTableViewCellIdentifier];
+    cell.todayCell = self.useTodayCell;
     
     CBPExtensionExamplePost *post = self.items[indexPath.row];
     

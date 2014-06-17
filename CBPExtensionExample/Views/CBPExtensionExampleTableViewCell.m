@@ -11,6 +11,9 @@
 #import "CBPExtensionExampleTableViewCell.h"
 
 static const CGFloat CBPExtensionExampleTableViewCellPadding = 15.0;
+static const CGFloat CBPTodayTableViewCellPadding = 10.0;
+static const CGFloat CBPTodayTableViewCellVerticalPadding = 5.0;
+static const CGFloat CBPTodayImageHeight = 60.0;
 
 @interface CBPExtensionExampleTableViewCell()
 @property (nonatomic, assign) BOOL constraintsUpdated;
@@ -40,29 +43,63 @@ static const CGFloat CBPExtensionExampleTableViewCellPadding = 15.0;
                                 @"postImageView": self.postImageView,
                                 @"postTitleLabel": self.postTitleLabel};
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(5)-[postTitleLabel]-(5)-[postImageView(150)]-(5)-[postDateLabel]-(5)-|"
-                                                                                 options:0
-                                                                                 metrics:nil
-                                                                                   views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[postTitleLabel]-(%f)-|", CBPExtensionExampleTableViewCellPadding, CBPExtensionExampleTableViewCellPadding]
-                                                                                 options:0
-                                                                                 metrics:nil
-                                                                                   views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[postImageView]-(%f)-|", CBPExtensionExampleTableViewCellPadding, CBPExtensionExampleTableViewCellPadding]
-                                                                                 options:0
-                                                                                 metrics:nil
-                                                                                   views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[postDateLabel]-(>=0)-[postCommentLabel]-(%f)-|", CBPExtensionExampleTableViewCellPadding, CBPExtensionExampleTableViewCellPadding]
-                                                                                 options:0
-                                                                                 metrics:nil
-                                                                                   views:views]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.postCommentLabel
-                                                                     attribute:NSLayoutAttributeCenterY
-                                                                     relatedBy:NSLayoutRelationEqual
-                                                                        toItem:self.postDateLabel
-                                                                     attribute:NSLayoutAttributeCenterY
-                                                                    multiplier:1.0f
-                                                                      constant:0]];
+        if (self.todayCell) {
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%f)-[postTitleLabel]-(%f)-[postCommentLabel]-(%f)-[postDateLabel]-(%f)-|", CBPTodayTableViewCellVerticalPadding, CBPTodayTableViewCellVerticalPadding, CBPTodayTableViewCellVerticalPadding, CBPTodayTableViewCellVerticalPadding]
+                                                                                     options:0
+                                                                                     metrics:nil
+                                                                                       views:views]];
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|[postImageView(%f)]-(%f)-[postTitleLabel]-(%f)-|", CBPTodayImageHeight,CBPTodayTableViewCellPadding, CBPTodayTableViewCellPadding]
+                                                                                     options:0
+                                                                                     metrics:nil
+                                                                                       views:views]];
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|[postImageView]-(%f)-[postCommentLabel]-(%f)-|", CBPTodayTableViewCellPadding, CBPTodayTableViewCellPadding]
+                                                                                     options:0
+                                                                                     metrics:nil
+                                                                                       views:views]];
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|[postImageView]-(%f)-[postDateLabel]-(%f)-|", CBPTodayTableViewCellPadding, CBPTodayTableViewCellPadding]
+                                                                                     options:0
+                                                                                     metrics:nil
+                                                                                       views:views]];
+            [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.postImageView
+                                                                         attribute:NSLayoutAttributeCenterY
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:self.contentView
+                                                                         attribute:NSLayoutAttributeCenterY
+                                                                        multiplier:1.0f
+                                                                          constant:0]];
+            [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.postImageView
+                                                                         attribute:NSLayoutAttributeHeight
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:nil
+                                                                         attribute:NSLayoutAttributeNotAnAttribute
+                                                                        multiplier:1.0f
+                                                                          constant:CBPTodayImageHeight
+                                             ]];
+        } else {
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(5)-[postTitleLabel]-(5)-[postImageView(150)]-(5)-[postDateLabel]-(5)-|"
+                                                                                     options:0
+                                                                                     metrics:nil
+                                                                                       views:views]];
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[postTitleLabel]-(%f)-|", CBPExtensionExampleTableViewCellPadding, CBPExtensionExampleTableViewCellPadding]
+                                                                                     options:0
+                                                                                     metrics:nil
+                                                                                       views:views]];
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[postImageView]-(%f)-|", CBPExtensionExampleTableViewCellPadding, CBPExtensionExampleTableViewCellPadding]
+                                                                                     options:0
+                                                                                     metrics:nil
+                                                                                       views:views]];
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[postDateLabel]-(>=0)-[postCommentLabel]-(%f)-|", CBPExtensionExampleTableViewCellPadding, CBPExtensionExampleTableViewCellPadding]
+                                                                                     options:0
+                                                                                     metrics:nil
+                                                                                       views:views]];
+            [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.postCommentLabel
+                                                                         attribute:NSLayoutAttributeCenterY
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:self.postDateLabel
+                                                                         attribute:NSLayoutAttributeCenterY
+                                                                        multiplier:1.0f
+                                                                          constant:0]];
+        }
         
         self.constraintsUpdated = YES;
     }
@@ -103,6 +140,7 @@ static const CGFloat CBPExtensionExampleTableViewCellPadding = 15.0;
 {
     [self.postImageView setImageWithURL:[NSURL URLWithString:imageURI]
                        placeholderImage:nil];
+
 }
 
 - (void)setPostDate:(NSString *)postDate
@@ -115,6 +153,17 @@ static const CGFloat CBPExtensionExampleTableViewCellPadding = 15.0;
 {
     self.postTitleLabel.text = postTitle;
     [self.postTitleLabel sizeToFit];
+}
+
+- (void)setTodayCell:(BOOL)todayCell
+{
+    if (todayCell) {
+        self.constraintsUpdated = NO;
+    
+        [self setNeedsUpdateConstraints];
+    }
+    
+    _todayCell = todayCell;
 }
 
 - (UILabel *)postCommentLabel
