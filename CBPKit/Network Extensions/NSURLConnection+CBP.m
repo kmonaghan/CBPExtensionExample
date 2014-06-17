@@ -13,7 +13,7 @@
 @implementation NSURLConnection (CBPWordPress)
 + (void)loadPosts:(NSInteger)count completion:(void (^)(NSArray *posts, NSError* error)) handler
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://broadsheet.ie/?json=1&count=%d", count]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://broadsheet.ie/?json=1&count=%ld", (long)count]];
         
     [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
                                        queue:[[NSOperationQueue alloc] init]
