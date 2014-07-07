@@ -9,11 +9,7 @@
 #import "TodayViewController.h"
 #import <NotificationCenter/NotificationCenter.h>
 
-#import "CBPExtensionExampleDataSource.h"
-
-#import "CBPExtensionExampleTableViewCell.h"
-
-#import "CBPExtensionExamplePost.h"
+@import CBPKit;
 
 @interface TodayViewController () <NCWidgetProviding, UITableViewDelegate>
 @property (nonatomic) CBPExtensionExampleDataSource *dataSource;
