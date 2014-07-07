@@ -9,8 +9,7 @@
 #import "CBPExtensionExampleViewController.h"
 #import "CBPExtensionExamplePostViewController.h"
 
-#import "CBPExtensionExampleDataSource.h"
-#import "CBPExtensionExampleTableViewCell.h"
+@import CBPKit;
 
 @interface CBPExtensionExampleViewController () <UITableViewDelegate>
 @property (nonatomic) CBPExtensionExampleDataSource *dataSource;
