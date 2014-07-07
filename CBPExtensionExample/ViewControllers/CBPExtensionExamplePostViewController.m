@@ -8,7 +8,7 @@
 
 #import "CBPExtensionExamplePostViewController.h"
 
-#import "CBPExtensionExamplePost.h"
+@import CBPKit;
 
 @interface CBPExtensionExamplePostViewController ()
 @property (nonatomic) CBPExtensionExamplePost *post;

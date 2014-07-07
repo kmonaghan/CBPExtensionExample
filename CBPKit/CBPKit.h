@@ -15,3 +15,7 @@ FOUNDATION_EXPORT double CBPKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char CBPKitVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <CBPKit/PublicHeader.h>
+
+#import <CBPKit/CBPExtensionExampleDataSource.h>
+#import <CBPKit/CBPExtensionExamplePost.h>
+#import <CBPKit/CBPExtensionExampleTableViewCell.h>
