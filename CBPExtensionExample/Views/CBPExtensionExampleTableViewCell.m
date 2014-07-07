@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Crayons and Brown Paper. All rights reserved.
 //
 
-#import <SDWebImageKit/SDWebImageKit.h>
+#import "UIImageView+WebCache.h"
 
 #import "CBPExtensionExampleTableViewCell.h"
 
