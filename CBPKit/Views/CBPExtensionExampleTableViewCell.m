@@ -38,6 +38,11 @@ static const CGFloat CBPTodayImageHeight = 60.0;
 - (void)updateConstraints
 {
     if (!self.constraintsUpdated) {
+        // Note: if the constraints you add below require a larger cell size than the current size (which is likely to be the default size {320, 44}), you'll get an exception.
+        // As a fix, you can temporarily increase the size of the cell's contentView so that this does not occur using code similar to the line below.
+        //      See here for further discussion: https://github.com/Alex311/TableCellWithAutoLayout/commit/bde387b27e33605eeac3465475d2f2ff9775f163#commitcomment-4633188
+        self.contentView.bounds = CGRectMake(0.0f, 0.0f, 99999.0f, 99999.0f);
+        
         NSDictionary *views = @{@"postCommentLabel": self.postCommentLabel,
                                 @"postDateLabel": self.postDateLabel,
                                 @"postImageView": self.postImageView,
@@ -52,11 +57,11 @@ static const CGFloat CBPTodayImageHeight = 60.0;
                                                                                      options:0
                                                                                      metrics:nil
                                                                                        views:views]];
-            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|[postImageView]-(%f)-[postCommentLabel]-(%f)-|", CBPTodayTableViewCellPadding, CBPTodayTableViewCellPadding]
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:[postImageView]-(%f)-[postCommentLabel]-(%f)-|", CBPTodayTableViewCellPadding, CBPTodayTableViewCellPadding]
                                                                                      options:0
                                                                                      metrics:nil
                                                                                        views:views]];
-            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|[postImageView]-(%f)-[postDateLabel]-(%f)-|", CBPTodayTableViewCellPadding, CBPTodayTableViewCellPadding]
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:[postImageView]-(%f)-[postDateLabel]-(%f)-|", CBPTodayTableViewCellPadding, CBPTodayTableViewCellPadding]
                                                                                      options:0
                                                                                      metrics:nil
                                                                                        views:views]];
@@ -73,8 +78,7 @@ static const CGFloat CBPTodayImageHeight = 60.0;
                                                                             toItem:nil
                                                                          attribute:NSLayoutAttributeNotAnAttribute
                                                                         multiplier:1.0f
-                                                                          constant:CBPTodayImageHeight
-                                             ]];
+                                                                          constant:CBPTodayImageHeight]];
         } else {
             [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(5)-[postTitleLabel]-(5)-[postImageView(150)]-(5)-[postDateLabel]-(5)-|"
                                                                                      options:0
@@ -89,16 +93,9 @@ static const CGFloat CBPTodayImageHeight = 60.0;
                                                                                      metrics:nil
                                                                                        views:views]];
             [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(%f)-[postDateLabel]-(>=0)-[postCommentLabel]-(%f)-|", CBPExtensionExampleTableViewCellPadding, CBPExtensionExampleTableViewCellPadding]
-                                                                                     options:0
+                                                                                     options:NSLayoutFormatAlignAllCenterY
                                                                                      metrics:nil
                                                                                        views:views]];
-            [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.postCommentLabel
-                                                                         attribute:NSLayoutAttributeCenterY
-                                                                         relatedBy:NSLayoutRelationEqual
-                                                                            toItem:self.postDateLabel
-                                                                         attribute:NSLayoutAttributeCenterY
-                                                                        multiplier:1.0f
-                                                                          constant:0]];
         }
         
         self.constraintsUpdated = YES;
@@ -109,9 +106,16 @@ static const CGFloat CBPTodayImageHeight = 60.0;
 
 - (void)layoutSubviews
 {
-    self.postTitleLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.contentView.frame) - (CBPExtensionExampleTableViewCellPadding * 2);
-    
     [super layoutSubviews];
+    
+    // Make sure the contentView does a layout pass here so that its subviews have their frames set, which we
+    // need to use to set the preferredMaxLayoutWidth below.
+    [self.contentView setNeedsLayout];
+    [self.contentView layoutIfNeeded];
+    
+    // Set the preferredMaxLayoutWidth of the mutli-line bodyLabel based on the evaluated width of the label's frame,
+    // as this will allow the text to wrap correctly, and as a result allow the label to take on the correct height.
+    self.postTitleLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.contentView.frame) - (CBPExtensionExampleTableViewCellPadding * 2) - (self.todayCell ? CBPTodayImageHeight : 0);
 }
 
 - (void)prepareForReuse
@@ -172,6 +176,13 @@ static const CGFloat CBPTodayImageHeight = 60.0;
         _postCommentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _postCommentLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _postCommentLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+        
+        
+        if (self.todayCell) {
+            _postCommentLabel.textColor = [UIColor whiteColor];
+        }
+        
+        
         [self.contentView addSubview:_postCommentLabel];
     }
     
@@ -184,6 +195,10 @@ static const CGFloat CBPTodayImageHeight = 60.0;
         _postDateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _postDateLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _postDateLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+        
+        if (self.todayCell) {
+            _postDateLabel.textColor = [UIColor whiteColor];
+        }
         
         [self.contentView addSubview:_postDateLabel];
     }
@@ -213,6 +228,10 @@ static const CGFloat CBPTodayImageHeight = 60.0;
         _postTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _postTitleLabel.numberOfLines = 0;
         _postTitleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+        
+        if (self.todayCell) {
+            _postTitleLabel.textColor = [UIColor whiteColor];
+        }
         
         [self.contentView addSubview:_postTitleLabel];
     }

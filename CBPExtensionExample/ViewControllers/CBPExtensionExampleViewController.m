@@ -59,7 +59,7 @@
         _tableView.delegate = self;
         _tableView.dataSource = self.dataSource;
         
-        _tableView.rowHeight = CBPExtensionExampleTableViewCellHeight;
+        _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.estimatedRowHeight = CBPExtensionExampleTableViewCellHeight;
         
         [_tableView registerClass:[CBPExtensionExampleTableViewCell class] forCellReuseIdentifier:CBPExtensionExampleTableViewCellIdentifier];

@@ -72,6 +72,10 @@
     cell.postDate = post.date;
     cell.commentCount = post.commentCount;
     
+    // Make sure the constraints have been added to this cell, since it may have just been created from scratch
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
+    
     return cell;
 }
 
