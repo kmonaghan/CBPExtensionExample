@@ -50,10 +50,10 @@
 		F5C7840A19503BF40044D4A2 /* CBPKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C7840919503BF40044D4A2 /* CBPKitTests.m */; };
 		F5C7840D19503BF40044D4A2 /* CBPKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5C783F819503BF40044D4A2 /* CBPKit.framework */; };
 		F5C7840E19503BF40044D4A2 /* CBPKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F5C783F819503BF40044D4A2 /* CBPKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		F5C7842019503C350044D4A2 /* CBPExtensionExampleDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = F5C783D5195038B00044D4A2 /* CBPExtensionExampleDataSource.h */; };
-		F5C7842119503C350044D4A2 /* CBPExtensionExamplePost.h in Headers */ = {isa = PBXBuildFile; fileRef = F5C783CD195038B00044D4A2 /* CBPExtensionExamplePost.h */; };
-		F5C7842219503C350044D4A2 /* NSURLConnection+CBP.h in Headers */ = {isa = PBXBuildFile; fileRef = F5C783D8195038B00044D4A2 /* NSURLConnection+CBP.h */; };
-		F5C7842319503C350044D4A2 /* CBPExtensionExampleTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = F5C783DB195038B00044D4A2 /* CBPExtensionExampleTableViewCell.h */; };
+		F5C7842019503C350044D4A2 /* CBPExtensionExampleDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = F5C783D5195038B00044D4A2 /* CBPExtensionExampleDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5C7842119503C350044D4A2 /* CBPExtensionExamplePost.h in Headers */ = {isa = PBXBuildFile; fileRef = F5C783CD195038B00044D4A2 /* CBPExtensionExamplePost.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5C7842219503C350044D4A2 /* NSURLConnection+CBP.h in Headers */ = {isa = PBXBuildFile; fileRef = F5C783D8195038B00044D4A2 /* NSURLConnection+CBP.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		F5C7842319503C350044D4A2 /* CBPExtensionExampleTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = F5C783DB195038B00044D4A2 /* CBPExtensionExampleTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5C7842419503C3B0044D4A2 /* CBPExtensionExampleDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C783D6195038B00044D4A2 /* CBPExtensionExampleDataSource.m */; };
 		F5C7842519503C3B0044D4A2 /* CBPExtensionExamplePost.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C783CE195038B00044D4A2 /* CBPExtensionExamplePost.m */; };
 		F5C7842619503C3B0044D4A2 /* NSURLConnection+CBP.m in Sources */ = {isa = PBXBuildFile; fileRef = F5C783D9195038B00044D4A2 /* NSURLConnection+CBP.m */; };
@@ -318,7 +318,6 @@
 				F5C7838C195037700044D4A2 /* AppDelegate.m */,
 				F5C78394195037700044D4A2 /* Images.xcassets */,
 				F5C78387195037700044D4A2 /* Supporting Files */,
-				F5C783AA195038B00044D4A2 /* Vendor */,
 				F5C783CF195038B00044D4A2 /* ViewControllers */,
 			);
 			path = CBPExtensionExample;
@@ -348,13 +347,6 @@
 				F5C7839F195037700044D4A2 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		F5C783AA195038B00044D4A2 /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Vendor;
 			sourceTree = "<group>";
 		};
 		F5C783AC195038B00044D4A2 /* SDWebImage */ = {
